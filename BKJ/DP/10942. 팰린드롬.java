@@ -7,56 +7,56 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
-		int N=Integer.parseInt(in.readLine()); // ¼ö¿­ÀÇ Å©±â
-		int[] arr=new int[N+1]; // ¼ö¿­À» ´ãÀ» ¹è¿­
+		int N=Integer.parseInt(in.readLine()); // ìˆ˜ì—´ì˜ í¬ê¸°
+		int[] arr=new int[N+1]; // ìˆ˜ì—´ì„ ë‹´ì„ ë°°ì—´
 		
 		StringTokenizer st=new StringTokenizer(in.readLine()," ");
 		for(int i=1;i<=N;i++) {
 			arr[i]=Integer.parseInt(st.nextToken());
 		}
 		
-		// DP Å×ÀÌºí
-		// dp[i][j]=ÆÓ¸°µå·Ò ¿©ºÎ, i=½ÃÀÛÁ¡ÀÇ ¹øÈ£, j=³¡Á¡ÀÇ ¹øÈ£
+		// DP í…Œì´ë¸”
+		// dp[i][j]=íŒ°ë¦°ë“œë¡¬ ì—¬ë¶€, i=ì‹œì‘ì ì˜ ë²ˆí˜¸, j=ëì ì˜ ë²ˆí˜¸
 		int[][] dp=new int[N+1][N+1];
 		
-		// ¼ö¿­ÀÇ ±æÀÌ°¡ 1ÀÎ °æ¿ì ÃÊ±âÈ­
+		// ìˆ˜ì—´ì˜ ê¸¸ì´ê°€ 1ì¸ ê²½ìš° ì´ˆê¸°í™”
 		for(int i=1;i<=N;i++) {
 			dp[i][i]=1;
 		}
 
-		// ¼ö¿­ÀÇ ±æÀÌ°¡ 2ÀÎ °æ¿ì ÃÊ±âÈ­
-        for(int i=1; i<=N-1; i++) {
-        	if(arr[i]==arr[i + 1]) {
-        		dp[i][i+1]= 1;
-        	}
-        }
+		// ìˆ˜ì—´ì˜ ê¸¸ì´ê°€ 2ì¸ ê²½ìš° ì´ˆê¸°í™”
+        	for(int i=1; i<=N-1; i++) {
+        		if(arr[i]==arr[i + 1]) {
+        			dp[i][i+1]= 1;
+        		}
+       		}
 
-        // j: ³¡Á¡ÀÇ ¹øÈ£
-        for(int j=1; j<=N; j++){ 
-        	// i: ½ÃÀÛÁ¡ÀÇ ¹øÈ£
-            for(int i=1; i<j; i++){
-            	// ½ÃÀÛ°ú ³¡ÀÇ °ªÀÌ °°°í, Áß°£¿¡ ÀÖ´Â ¼ö¿­ÀÌ ÆÓ¸°µå·ÒÀÎ °æ¿ì
-            	if(arr[i]==arr[j] && dp[i+1][j-1]==1) {
-            		dp[i][j]=1;
-            	}
-            }
-        }
+        	// j: ëì ì˜ ë²ˆí˜¸
+        	for(int j=1; j<=N; j++){ 
+        		// i: ì‹œì‘ì ì˜ ë²ˆí˜¸
+            		for(int i=1; i<j; i++){
+            			// ì‹œì‘ê³¼ ëì˜ ê°’ì´ ê°™ê³ , ì¤‘ê°„ì— ìˆëŠ” ìˆ˜ì—´ì´ íŒ°ë¦°ë“œë¡¬ì¸ ê²½ìš°
+            			if(arr[i]==arr[j] && dp[i+1][j-1]==1) {
+            				dp[i][j]=1;
+            			}
+            		}
+       		}
 		
-		int M=Integer.parseInt(in.readLine()); // Áú¹®ÀÇ °³¼ö
+		int M=Integer.parseInt(in.readLine()); // ì§ˆë¬¸ì˜ ê°œìˆ˜
 		int a,b;
 		StringBuilder sb = new StringBuilder();
 		for(int i=0;i<M;i++) {
 			st=new StringTokenizer(in.readLine()," ");
 			a=Integer.parseInt(st.nextToken());
 			b=Integer.parseInt(st.nextToken());
-            if(dp[a][b]==1) {
-            	sb.append("1\n");
-            }
-            else {
-            	sb.append("0\n");
-            }
+            		if(dp[a][b]==1) {
+            			sb.append("1\n");
+            		}
+            		else {
+            			sb.append("0\n");
+            		}
 		}
 		
-		System.out.println(sb);	// Ãâ·Â
+		System.out.println(sb);	// ì¶œë ¥
 	}
 }
